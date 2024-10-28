@@ -18,3 +18,10 @@ df['coral_cover_difference'] = df['coral_cover_2020'] - df['coral_cover_2100']
 
 #I want to see my new column with the differences
 print(df['coral_cover_difference'])
+
+#I added the differences as an additional column, with each row being the corresponding difference
+# between 2020 and 2100
+df = pd.merge(df, df[['coral_cover_2020', 'coral_cover_difference']], on='coral_cover_2020')
+
+#I want to see that it was added to the dataframe
+print(df)
