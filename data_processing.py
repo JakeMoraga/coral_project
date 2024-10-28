@@ -12,3 +12,9 @@ usecols= ['coral_cover_2020', 'coral_cover_2100', 'latitude'])
 df['latitude']= df['latitude'].astype(float)
 df['coral_cover_2020']= df['coral_cover_2020'].astype(float)
 df['coral_cover_2100']= df['coral_cover_2100'].astype(float)
+
+#Now I find the difference of coral cover from the year 2020 to 2100
+df['coral_cover_difference'] = df['coral_cover_2020'] - df['coral_cover_2100']
+
+#I want to see my new column with the differences
+print(df['coral_cover_difference'])
