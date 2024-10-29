@@ -41,5 +41,6 @@ df_avg['latitude_bin'] = df_avg['latitude_bin'].map(dict(enumerate(bin_labels)))
 cover_chart = sns.lineplot(data=df_avg, x='latitude_bin', y='coral_cover_difference')
 sns.despine() #cleans up the chart by taking out part of the frame
 #Lables the x and y axis
-cover_chart.set(xlabel='Latitude', ylabel='Average coral cover loss from 2020 to 2100 (km$^{2}$)')
+cover_chart.set(xlabel='Latitude', ylabel='Average coral cover (km$^{2}$)')
 plt.xticks(rotation=45) #Makes the x-axis labels look fancy
+plt.title('Average coral cover loss from 2020 to 2100 in relation to latitude')
