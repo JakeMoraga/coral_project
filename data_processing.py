@@ -20,15 +20,17 @@ df['coral_cover_difference'] = df['coral_cover_2020'] - df['coral_cover_2100']
 #I want to represent the data in a bar chart so the best way to do that is make bins
 #This arranges latitude which will be on the x-axis into bins ranging from -30 to 30 degrees
 #and the bins categorized by 5
-df['latitude_bin'] = pd.cut(df['latitude'], bins=np.arange(-30, 30, 5))
-
-#This converts the new dataset "latitude_bin" to be in str format so that it can be used
-#in the graph by being the right data type
-df['latitude_bin'] = df['latitude_bin'].astype(str)
+#The last part makes the bins left-inclusive and also creates simple labels for each bin which makes it
+#a lot easier and quicker to process
+df['latitude_bin'] = pd.cut(df['latitude'], bins=np.arange(-30, 30, 5), right=False, labels=False)
 
 #This groups the datapoints under coral_cover_difference into the different bins created and finds
 #the average of each bin so that I can plot it
 df_avg = df.groupby('latitude_bin')['coral_cover_difference'].mean().reset_index()
 
-#I want to see what my data looks like now
-print(df)
+
+#this makes the chart with latitude on the x axis and difference in coral cover on the y axis
+#made sure to use df_avg now as the data and not just df since it has the averages sorted
+cover_chart = sns.lineplot(data=df_avg, x='latitude_bin', y='coral_cover_difference')
+sns.despine() #cleans up the chart by taking out part of the frame
+cover_chart.set(xlabel='Latitude', ylabel='Average coral cover loss')
