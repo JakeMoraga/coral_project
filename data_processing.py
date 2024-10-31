@@ -47,19 +47,20 @@ bin_labels = [f"[{i}, {i+5})" for i in range(-30, 30, 5)]
 #bins created from the dataset are assigned to the corresponding value
 df_avg['latitude_bin'] = df_avg['latitude_bin'].map(dict(enumerate(bin_labels)))
 
+
 #this makes the chart with latitude on the x axis and difference in coral cover on the y axis
 #made sure to use df_avg now as the data and not just df since it has the averages sorted
-coral_cover_chart = sns.lineplot(data=df_avg, x='latitude_bin', y='coral_cover_difference')
-sns.despine() #cleans up the chart by taking out part of the frame
-#Lables the x and y axis
-coral_cover_chart.set(xlabel='Latitude', ylabel='Average coral cover loss (km$^{2}$)')
-plt.xticks(rotation=45) #Makes the x-axis labels look fancy
-plt.title('Average Predicted Change in Coral Cover From 2020 to 2100 in Relation to Latitude') #Makes the title
+cover_chart = sns.lineplot(data=df_avg, x='latitude_bin', y='coral_cover_difference')
+sns.despine()  # Cleans up the chart by taking out part of the frame
+cover_chart.set(xlabel='Latitude', ylabel='Average Coral Cover (km$^{2}$)') #Sets axis names
+plt.xticks(rotation=45)  # Makes the x-axis labels look fancy
+plt.title('Average Coral Cover Loss from 2020 to 2100 in Relation to Latitude') #plot title name
+plt.show() #shows me the chart
 
 #This is very similar to the first chart but uses SST_difference for the x-axis instead of latitude
-coral_cover_chart_2 = sns.lineplot(data=df_avg_2, x='SST_difference', y='coral_cover_difference')
-sns.despine() #cleans up the chart by taking out part of the frame
-#Lables the x and y axis
-coral_cover_chart_2.set(xlabel='Change in SST', ylabel='Average coral cover loss (km$^{2}$)')
-plt.xticks(rotation=45) #Makes the x-axis labels look fancy
-plt.title('Average Predicted Change in Coral Cover From 2020 to 2100 in Relation to Average SST Change') #Makes the title
+#and the correct data set for comparing the two
+cover_chart_2 = sns.lineplot(data=df_avg_2, x='SST_difference', y='coral_cover_difference')
+sns.despine()  # Cleans up the chart by taking out part of the frame
+cover_chart_2.set(xlabel='Change in SST', ylabel='Average Coral Cover Loss (km$^{2}$)') #Sets axis names
+plt.title('Average Predicted Change in Coral Cover vs Average SST Change') #plot title name
+plt.show() #shows me the chart
