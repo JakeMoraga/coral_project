@@ -1,6 +1,7 @@
 import numpy as np
 import seaborn as sns
 import pandas as pd
+import matplotlib.pyplot as plt
 
 #this uploads the data without the first row containing units so the data 
 #starts in the first row and also only uses the columns that I want to look
