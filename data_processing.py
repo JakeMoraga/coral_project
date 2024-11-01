@@ -32,6 +32,23 @@ right=False, labels=False)
 #of the plot
 df['SST_bin'] = pd.cut(df['SST_difference'], bins=np.arange(-5, 5.5, 0.5))
 
+#I want to create a new dataframe for coral cover for the third plot with coral cover from
+#both 2020 and 2100 but not the difference
+#This copies coral_cover_2020 and latitude_bin so that they can be modified outside the main
+#dataframe
+df_2020 = df[['latitude_bin', 'coral_cover_2020']].copy()
+df_2020['Year'] = '2020' #adds another column with the year to identify
+df_2020.rename(columns={'coral_cover_2020': 'Coral Cover'}, inplace=True) #renames the copy to be 'Coral Cover'
+
+#This chunk of code does the same thing but with the coral cover from 2100
+df_2100 = df[['latitude_bin', 'coral_cover_2100']].copy()
+df_2100['Year'] = '2100'
+df_2100.rename(columns={'coral_cover_2100': 'Coral Cover'}, inplace=True)
+
+#This code combines the new dfs for coral cover in 2020 and 2100 into one and also creates
+#a new index where values are not duplicated which causes errors
+df_coral = pd.concat([df_2020, df_2100], ignore_index=True)
+
 #This groups the datapoints under coral_cover_difference into the different bins created
 #and finds the average of each bin so that I can plot it
 df_avg = df.groupby('latitude_bin')['coral_cover_difference'].mean().reset_index()
@@ -47,6 +64,14 @@ bin_labels = [f"[{i}, {i+5})" for i in range(-30, 30, 5)]
 #bins created from the dataset are assigned to the corresponding value
 df_avg['latitude_bin'] = df_avg['latitude_bin'].map(dict(enumerate(bin_labels)))
 
+#This makes the catplot with latitude on the x-axis and coral cover on the y
+coral_difference_chart = sns.catplot(data=df_coral, x='latitude_bin', y='Coral Cover', hue='Year', kind='bar', height=6, aspect=2, palette='dark')
+coral_difference_chart.set(xlabel='Latitude', ylabel='Average Coral Cover (km$^{2}$)') #Sets axis names
+plt.title('Average Coral Cover in 2020 and 2100 by Latitude')
+plt.xticks(rotation=45)  # Makes the x-axis labels look fancy
+plt.show()
+
+
 
 #this makes the chart with latitude on the x axis and difference in coral cover on the y axis
 #made sure to use df_avg now as the data and not just df since it has the averages sorted
@@ -61,6 +86,7 @@ plt.show() #shows me the chart
 #and the correct data set for comparing the two
 cover_chart_2 = sns.lineplot(data=df_avg_2, x='SST_difference', y='coral_cover_difference')
 sns.despine()  # Cleans up the chart by taking out part of the frame
-cover_chart_2.set(xlabel='Change in SST', ylabel='Average Coral Cover Loss (km$^{2}$)') #Sets axis names
+cover_chart_2.set(xlabel='Increase in SST (\u00B0C)', ylabel='Average Coral Cover Loss (km$^{2}$)') #Sets axis names
+plt.xticks(rotation=45)  # Makes the x-axis labels look fancy
 plt.title('Predicted Change in Coral Cover in Relation to Average SST Change') #plot title name
 plt.show() #shows me the chart
