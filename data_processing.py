@@ -28,6 +28,13 @@ df['SST_difference'] = df['SST_2100'] - df['SST_2020']
 df['latitude_bin'] = pd.cut(df['latitude'], bins=np.arange(-30, 30, 5), 
 right=False, labels=False)
 
+#This is a copy of the above code but without the left incluse and labels for the catplot
+#since these functions taken out don't generate a correct x-axis
+df['latitude_bin_2'] = pd.cut(df['latitude'], bins=np.arange(-30, 30, 5)) 
+
+#This ensures that if there are any duplicate rows in the df that they are dropped 
+df.drop_duplicates(subset=['latitude_bin_2', 'coral_cover_2020', 'coral_cover_2100'], inplace=True)
+
 #Similar to above with latitude but it categorizes SST_difference neatly to be used on the x-axis
 #of the plot
 df['SST_bin'] = pd.cut(df['SST_difference'], bins=np.arange(-5, 5.5, 0.5))
@@ -36,12 +43,12 @@ df['SST_bin'] = pd.cut(df['SST_difference'], bins=np.arange(-5, 5.5, 0.5))
 #both 2020 and 2100 but not the difference
 #This copies coral_cover_2020 and latitude_bin so that they can be modified outside the main
 #dataframe
-df_2020 = df[['latitude_bin', 'coral_cover_2020']].copy()
+df_2020 = df[['latitude_bin_2', 'coral_cover_2020']].copy()
 df_2020['Year'] = '2020' #adds another column with the year to identify
 df_2020.rename(columns={'coral_cover_2020': 'Coral Cover'}, inplace=True) #renames the copy to be 'Coral Cover'
 
 #This chunk of code does the same thing but with the coral cover from 2100
-df_2100 = df[['latitude_bin', 'coral_cover_2100']].copy()
+df_2100 = df[['latitude_bin_2', 'coral_cover_2100']].copy()
 df_2100['Year'] = '2100'
 df_2100.rename(columns={'coral_cover_2100': 'Coral Cover'}, inplace=True)
 
@@ -65,13 +72,11 @@ bin_labels = [f"[{i}, {i+5})" for i in range(-30, 30, 5)]
 df_avg['latitude_bin'] = df_avg['latitude_bin'].map(dict(enumerate(bin_labels)))
 
 #This makes the catplot with latitude on the x-axis and coral cover on the y
-coral_difference_chart = sns.catplot(data=df_coral, x='latitude_bin', y='Coral Cover', hue='Year', kind='bar', height=6, aspect=2, palette='dark')
+coral_difference_chart = sns.catplot(data=df_coral, x='latitude_bin_2', y='Coral Cover', hue='Year', kind='bar', height=6, aspect=2, palette='dark')
 coral_difference_chart.set(xlabel='Latitude', ylabel='Average Coral Cover (km$^{2}$)') #Sets axis names
-plt.title('Average Coral Cover in 2020 and 2100 by Latitude')
+plt.title('Average Coral Cover in 2020 and 2100')
 plt.xticks(rotation=45)  # Makes the x-axis labels look fancy
 plt.show()
-
-
 
 #this makes the chart with latitude on the x axis and difference in coral cover on the y axis
 #made sure to use df_avg now as the data and not just df since it has the averages sorted
