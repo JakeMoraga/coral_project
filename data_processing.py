@@ -93,5 +93,5 @@ cover_chart_2 = sns.lineplot(data=df_avg_2, x='SST_difference', y='coral_cover_d
 sns.despine()  # Cleans up the chart by taking out part of the frame
 cover_chart_2.set(xlabel='Increase in SST (\u00B0C)', ylabel='Average Coral Cover Loss (km$^{2}$)') #Sets axis names
 plt.xticks(rotation=45)  # Makes the x-axis labels look fancy
-plt.title('Predicted Change in Coral Cover in Relation to Average SST Change') #plot title name
+plt.title('Predicted Change in Coral Cover From 2020 to 2100 in Relation to Increasing SST') #plot title name
 plt.show() #shows me the chart
