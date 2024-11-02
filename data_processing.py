@@ -75,6 +75,8 @@ df_avg['latitude_bin'] = df_avg['latitude_bin'].map(dict(enumerate(bin_labels)))
 coral_difference_chart = sns.catplot(data=df_coral, x='latitude_bin_2', y='Coral Cover', hue='Year', kind='bar', height=6, aspect=2, palette='dark')
 coral_difference_chart.set(xlabel='Latitude', ylabel='Average Coral Cover (km$^{2}$)') #Sets axis names
 plt.title('Average Coral Cover in 2020 and 2100')
+#Makes a caption for the figure, placing it below the x-axis and determining the size
+plt.figtext(0.5, -0.25, 'This figure shows the average coral cover in 2020 and 2100 as a function of latitude.\n Latitude is shown on the x-axis in bins of five,\n ranging from -30 to 25. From this figure it is evident that average coral cover \nis much higher in the year 2020 than 2100', ha='center', fontsize=16)
 plt.xticks(rotation=45)  # Makes the x-axis labels look fancy
 plt.show()
 
@@ -84,6 +86,8 @@ cover_chart = sns.lineplot(data=df_avg, x='latitude_bin', y='coral_cover_differe
 sns.despine()  # Cleans up the chart by taking out part of the frame
 cover_chart.set(xlabel='Latitude', ylabel='Average Coral Cover Loss (km$^{2}$)') #Sets axis names
 plt.xticks(rotation=45)  # Makes the x-axis labels look fancy
+#Makes a caption below the figure.
+plt.figtext(0.5, -0.35, 'This figure shows the average coral cover loss between 2020 and 2100 \nas a function of latitude. Latitude is similarly binned by \nintervals of 5 on the x-axis as the above figure but the y-axis is average coral cover loss. \n From this figure it is evident that the largest loss of coral cover is in the [20,25] bin \n and that average cover loss fluctates with latitude', ha='center', fontsize=12)
 plt.title('Predicted Change in Coral Cover From 2020 to 2100 in Relation to Latitude') #plot title name
 plt.show() #shows me the chart
 
@@ -93,5 +97,7 @@ cover_chart_2 = sns.lineplot(data=df_avg_2, x='SST_difference', y='coral_cover_d
 sns.despine()  # Cleans up the chart by taking out part of the frame
 cover_chart_2.set(xlabel='Increase in SST (\u00B0C)', ylabel='Average Coral Cover Loss (km$^{2}$)') #Sets axis names
 plt.xticks(rotation=45)  # Makes the x-axis labels look fancy
+#Makes a caption below the figure.
+plt.figtext(0.5, -0.25, 'This figure shows the average coral cover loss between 2020 and 2100 \n as a function of SST change. In this figure, the x-axis is \nnow change in SST and the y-axis remains the same as the above figure. \nLooking at this figure it is apparent that average coral cover loss is greatest between a \n1.5 and 2 degree celcius increase.', ha='center', fontsize=12)
 plt.title('Predicted Change in Coral Cover From 2020 to 2100 in Relation to Increasing SST') #plot title name
 plt.show() #shows me the chart
