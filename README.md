@@ -14,9 +14,12 @@ The script, when used with the appropriate dataset, was used to create three dif
 How To Use:
 
 Download the dataset here (https://github.com/user-attachments/files/17605824/coral_forecast.zip) or provided in the Coral_Dataset folder
-Open with Python
-  -suggest using Positron since that is the IDE that the script was produced and successfully ran on
+
+Open project with Python in a new file
+  -suggest using Python through Positron since that is the IDE that the script was produced and successfully ran on
+  
 Ensure that dataset is in the correct folder to access 
+
 Run script to produce the three desired graphs
 
 
