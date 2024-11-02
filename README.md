@@ -26,12 +26,14 @@ How To Use:
 
 What is included in this project:
 
-*script to access data from a large dataset
+-script to access data from a large dataset
 
-*script to sort and group data to be used for analysis
+-script to sort and group data to be used for analysis
 
-*script to modity and create additional data to be used for analysis
+-script to modity and create additional data to be used for analysis
 
-*script to create different figures to visually showcase data analysis
+-script to create different figures to visually showcase data analysis
 
+
+Thank you for taking the time to look over this project. This is my first time coding on this scale and using various tools such as GitHub. While my script is rudementary and at a basic level, I have learned a lot through this work to create a fondation for myself to continue to learn more about coding and how it can be applied to science.
 
